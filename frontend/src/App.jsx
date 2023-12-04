@@ -35,16 +35,38 @@ const App = () => {
                     <h1 className="my-2 text-center text-2xl text-purple-800">
                         Todo
                     </h1>
-                    {patientData && (
-                        <Column
-                            data={filterDataByInequality(
-                                patientData,
-                                "status",
-                                "DONE",
-                            )}
-                            setPatientData={setPatientData}
-                        />
-                    )}
+                    <div className="grid grid-cols-2 gap-2">
+                        {patientData && (
+                            <div>
+                                <h1 className="my-2 text-center text-xl text-purple-600">
+                                    Pending
+                                </h1>
+                                <Column
+                                    data={filterData(
+                                        patientData,
+                                        "status",
+                                        "PENDING",
+                                    )}
+                                    setPatientData={setPatientData}
+                                />
+                            </div>
+                        )}
+                        {patientData && (
+                            <div>
+                                <h1 className="my-2 text-center text-xl text-purple-600">
+                                    Rejected
+                                </h1>
+                                <Column
+                                    data={filterDataByInequality(
+                                        patientData,
+                                        "status",
+                                        "REJECTED",
+                                    )}
+                                    setPatientData={setPatientData}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 <div>
