@@ -53,7 +53,7 @@ const PatientCard = ({ data, setPatientData }) => {
                     <button
                         className="rounded-xl bg-purple-800 px-4 py-2 text-white"
                         onClick={() => updateState("REJECTED")}>
-                        Todo
+                        Rejected
                     </button>
                 )}
             </div>
