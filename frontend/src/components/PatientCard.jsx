@@ -6,7 +6,6 @@ const PatientCard = ({ data, setPatientData }) => {
 
             for (let index in updatedState) {
                 if (updatedState[index].id === data.id) {
-                    console.log("HEY")
                     updatedState[index]["status"] = status
                 }
             }

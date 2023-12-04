@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import Column from "./components/Column"
-import { filterData, filterDataByInequality } from "./utils"
+import SearchBar from "./components/SearchBar"
+import { filterData, filtersPipeline } from "./utils"
 
 const App = () => {
     const apiURL = "http://localhost:3000/cards"
 
     const [patientData, setPatientData] = useState()
+    const [filter, setFilter] = useState("")
 
     const getPatientData = () => {
         fetch(apiURL)
@@ -29,7 +31,7 @@ const App = () => {
             <h1 className="my-2 text-center text-3xl text-purple-800">
                 Card Triage
             </h1>
-
+            <SearchBar setFilter={setFilter} />
             <div className="grid grid-cols-2 gap-2">
                 <div>
                     <h1 className="my-2 text-center text-2xl text-purple-800">
@@ -42,11 +44,18 @@ const App = () => {
                                     Pending
                                 </h1>
                                 <Column
-                                    data={filterData(
-                                        patientData,
-                                        "status",
-                                        "PENDING",
-                                    )}
+                                    data={filtersPipeline(patientData, [
+                                        {
+                                            type: "equality",
+                                            attribute: "status",
+                                            value: "PENDING",
+                                        },
+                                        {
+                                            type: "inclusion",
+                                            attribute: "patient_name",
+                                            value: filter,
+                                        },
+                                    ])}
                                     setPatientData={setPatientData}
                                 />
                             </div>
@@ -57,11 +66,18 @@ const App = () => {
                                     Rejected
                                 </h1>
                                 <Column
-                                    data={filterData(
-                                        patientData,
-                                        "status",
-                                        "REJECTED",
-                                    )}
+                                    data={filtersPipeline(patientData, [
+                                        {
+                                            type: "equality",
+                                            attribute: "status",
+                                            value: "REJECTED",
+                                        },
+                                        {
+                                            type: "inclusion",
+                                            attribute: "patient_name",
+                                            value: filter,
+                                        },
+                                    ])}
                                     setPatientData={setPatientData}
                                 />
                             </div>
@@ -75,7 +91,18 @@ const App = () => {
                     </h1>
                     {patientData && (
                         <Column
-                            data={filterData(patientData, "status", "DONE")}
+                            data={filtersPipeline(patientData, [
+                                {
+                                    type: "equality",
+                                    attribute: "status",
+                                    value: "DONE",
+                                },
+                                {
+                                    type: "inclusion",
+                                    attribute: "patient_name",
+                                    value: filter,
+                                },
+                            ])}
                             setPatientData={setPatientData}
                         />
                     )}
