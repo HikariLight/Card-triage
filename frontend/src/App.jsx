@@ -26,7 +26,7 @@ const App = () => {
     }, [])
 
     return (
-        <div className="h-screen w-screen overflow-hidden bg-sky-50">
+        <div className="h-screen w-screen overflow-hidden bg-slate-50">
             <h1 className="my-2 text-center text-3xl text-purple-800">
                 Card Triage
             </h1>
