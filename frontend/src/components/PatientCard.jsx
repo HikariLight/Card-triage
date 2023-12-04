@@ -15,7 +15,7 @@ const PatientCard = ({ data, setPatientData }) => {
     }
 
     return (
-        <div className="m-2 rounded-md border border-purple-800 p-4 shadow-xl">
+        <div className="m-2 rounded-md border border-purple-800 p-4 shadow-md">
             <h1>
                 <span className="text-purple-800">Patient name</span>:{" "}
                 {data.patient_name}
