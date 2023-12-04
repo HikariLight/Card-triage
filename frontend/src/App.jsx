@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import Column from "./components/Column"
 import SearchBar from "./components/SearchBar"
-import { filterData, filtersPipeline } from "./utils"
 
 const App = () => {
     const apiURL = "http://localhost:3000/cards"
 
     const [patientData, setPatientData] = useState()
-    const [filter, setFilter] = useState("")
+    const [filter, setFilter] = useState()
 
     const getPatientData = () => {
         fetch(apiURL)
@@ -44,18 +43,23 @@ const App = () => {
                                     Pending
                                 </h1>
                                 <Column
-                                    data={filtersPipeline(patientData, [
-                                        {
-                                            type: "equality",
-                                            attribute: "status",
-                                            value: "PENDING",
-                                        },
-                                        {
-                                            type: "inclusion",
-                                            attribute: "patient_name",
-                                            value: filter,
-                                        },
-                                    ])}
+                                    data={patientData
+                                        .filter((patient) =>
+                                            patient.status.includes("PENDING"),
+                                        )
+                                        .filter((patient) => {
+                                            if (filter && filter !== "") {
+                                                return (
+                                                    patient.patient_name.includes(
+                                                        filter,
+                                                    ) ||
+                                                    patient.arrhythmias.includes(
+                                                        filter,
+                                                    )
+                                                )
+                                            }
+                                            return true
+                                        })}
                                     setPatientData={setPatientData}
                                 />
                             </div>
@@ -66,18 +70,23 @@ const App = () => {
                                     Rejected
                                 </h1>
                                 <Column
-                                    data={filtersPipeline(patientData, [
-                                        {
-                                            type: "equality",
-                                            attribute: "status",
-                                            value: "REJECTED",
-                                        },
-                                        {
-                                            type: "inclusion",
-                                            attribute: "patient_name",
-                                            value: filter,
-                                        },
-                                    ])}
+                                    data={patientData
+                                        .filter((patient) =>
+                                            patient.status.includes("REJECTED"),
+                                        )
+                                        .filter((patient) => {
+                                            if (filter && filter !== "") {
+                                                return (
+                                                    patient.patient_name.includes(
+                                                        filter,
+                                                    ) ||
+                                                    patient.arrhythmias.includes(
+                                                        filter,
+                                                    )
+                                                )
+                                            }
+                                            return true
+                                        })}
                                     setPatientData={setPatientData}
                                 />
                             </div>
@@ -91,18 +100,21 @@ const App = () => {
                     </h1>
                     {patientData && (
                         <Column
-                            data={filtersPipeline(patientData, [
-                                {
-                                    type: "equality",
-                                    attribute: "status",
-                                    value: "DONE",
-                                },
-                                {
-                                    type: "inclusion",
-                                    attribute: "patient_name",
-                                    value: filter,
-                                },
-                            ])}
+                            data={patientData
+                                .filter((patient) =>
+                                    patient.status.includes("DONE"),
+                                )
+                                .filter((patient) => {
+                                    if (filter && filter !== "") {
+                                        return (
+                                            patient.patient_name.includes(
+                                                filter,
+                                            ) ||
+                                            patient.arrhythmias.includes(filter)
+                                        )
+                                    }
+                                    return true
+                                })}
                             setPatientData={setPatientData}
                         />
                     )}
