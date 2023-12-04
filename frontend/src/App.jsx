@@ -57,7 +57,7 @@ const App = () => {
                                     Rejected
                                 </h1>
                                 <Column
-                                    data={filterDataByInequality(
+                                    data={filterData(
                                         patientData,
                                         "status",
                                         "REJECTED",
