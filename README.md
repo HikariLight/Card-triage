@@ -14,3 +14,6 @@ Created using React + Tailwind.
 ###### Execution
 - `backend/`: Run the command `npm run start`
 - `frontend/`: Run the command `npm run dev`
+
+#### Links
+- [Live link](https://card-triage-hikarilight.vercel.app/)
