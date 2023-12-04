@@ -1,6 +1,22 @@
-const PatientCard = ({ data }) => {
+const PatientCard = ({ data, setPatientData }) => {
+    const updateState = (status) => {
+        setPatientData((patientData) => {
+            // Deep copy
+            const updatedState = JSON.parse(JSON.stringify(patientData))
+
+            for (let index in updatedState) {
+                if (updatedState[index].id === data.id) {
+                    console.log("HEY")
+                    updatedState[index]["status"] = status
+                }
+            }
+
+            return updatedState
+        })
+    }
+
     return (
-        <div className="rounded-md border border-purple-800 p-4">
+        <div className="m-2 rounded-md border border-purple-800 p-4 shadow-xl">
             <h1>
                 <span className="text-purple-800">Patient name</span>:{" "}
                 {data.patient_name}
@@ -23,6 +39,24 @@ const PatientCard = ({ data }) => {
             <h3>
                 <span className="text-purple-800">Status</span>: {data.status}
             </h3>
+
+            <div className="flex flex-row justify-center">
+                {(data.status === "PENDING" || data.status === "REJECTED") && (
+                    <button
+                        className="rounded-xl bg-purple-800 px-4 py-2 text-white"
+                        onClick={() => updateState("DONE")}>
+                        Done
+                    </button>
+                )}
+
+                {data.status === "DONE" && (
+                    <button
+                        className="rounded-xl bg-purple-800 px-4 py-2 text-white"
+                        onClick={() => updateState("REJECTED")}>
+                        Rejected
+                    </button>
+                )}
+            </div>
         </div>
     )
 }
