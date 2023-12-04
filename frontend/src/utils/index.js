@@ -1,3 +1,13 @@
-import { filterData, filterDataByInequality } from "./filters"
+import {
+    filterData,
+    filterDataByInequality,
+    filterDataByInclusion,
+    filtersPipeline,
+} from "./filters"
 
-export { filterData, filterDataByInequality }
+export {
+    filterData,
+    filterDataByInequality,
+    filterDataByInclusion,
+    filtersPipeline,
+}
