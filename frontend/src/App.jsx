@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Column from "./components/Column"
 import SearchBar from "./components/SearchBar"
+import { filterPatientData } from "./utils"
 
 const App = () => {
     const apiURL = "http://localhost:3000/cards"
@@ -34,62 +35,28 @@ const App = () => {
             <div className="grid grid-cols-2 gap-2">
                 <div>
                     <h1 className="my-2 text-center text-2xl text-purple-800">
-                        Todo
+                        Todo (Pending - Rejected)
                     </h1>
                     <div className="grid grid-cols-2 gap-2">
                         {patientData && (
-                            <div>
-                                <h1 className="my-2 text-center text-xl text-purple-600">
-                                    Pending
-                                </h1>
-                                <Column
-                                    data={patientData
-                                        .filter((patient) =>
-                                            patient.status.includes("PENDING"),
-                                        )
-                                        .filter((patient) => {
-                                            if (filter && filter !== "") {
-                                                return (
-                                                    patient.patient_name.includes(
-                                                        filter,
-                                                    ) ||
-                                                    patient.arrhythmias.includes(
-                                                        filter,
-                                                    )
-                                                )
-                                            }
-                                            return true
-                                        })}
-                                    setPatientData={setPatientData}
-                                />
-                            </div>
+                            <Column
+                                data={filterPatientData(
+                                    patientData,
+                                    "PENDING",
+                                    filter,
+                                )}
+                                setPatientData={setPatientData}
+                            />
                         )}
                         {patientData && (
-                            <div>
-                                <h1 className="my-2 text-center text-xl text-purple-600">
-                                    Rejected
-                                </h1>
-                                <Column
-                                    data={patientData
-                                        .filter((patient) =>
-                                            patient.status.includes("REJECTED"),
-                                        )
-                                        .filter((patient) => {
-                                            if (filter && filter !== "") {
-                                                return (
-                                                    patient.patient_name.includes(
-                                                        filter,
-                                                    ) ||
-                                                    patient.arrhythmias.includes(
-                                                        filter,
-                                                    )
-                                                )
-                                            }
-                                            return true
-                                        })}
-                                    setPatientData={setPatientData}
-                                />
-                            </div>
+                            <Column
+                                data={filterPatientData(
+                                    patientData,
+                                    "REJECTED",
+                                    filter,
+                                )}
+                                setPatientData={setPatientData}
+                            />
                         )}
                     </div>
                 </div>
@@ -100,21 +67,11 @@ const App = () => {
                     </h1>
                     {patientData && (
                         <Column
-                            data={patientData
-                                .filter((patient) =>
-                                    patient.status.includes("DONE"),
-                                )
-                                .filter((patient) => {
-                                    if (filter && filter !== "") {
-                                        return (
-                                            patient.patient_name.includes(
-                                                filter,
-                                            ) ||
-                                            patient.arrhythmias.includes(filter)
-                                        )
-                                    }
-                                    return true
-                                })}
+                            data={filterPatientData(
+                                patientData,
+                                "DONE",
+                                filter,
+                            )}
                             setPatientData={setPatientData}
                         />
                     )}

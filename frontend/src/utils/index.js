@@ -3,6 +3,7 @@ import {
     filterDataByInequality,
     filterDataByInclusion,
     filtersPipeline,
+    filterPatientData,
 } from "./filters"
 
 export {
@@ -10,4 +11,5 @@ export {
     filterDataByInequality,
     filterDataByInclusion,
     filtersPipeline,
+    filterPatientData,
 }
