@@ -42,6 +42,7 @@ const App = () => {
                                 "status",
                                 "DONE",
                             )}
+                            setPatientData={setPatientData}
                         />
                     )}
                 </div>
@@ -53,6 +54,7 @@ const App = () => {
                     {patientData && (
                         <Column
                             data={filterData(patientData, "status", "DONE")}
+                            setPatientData={setPatientData}
                         />
                     )}
                 </div>
