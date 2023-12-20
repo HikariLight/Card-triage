@@ -28,18 +28,20 @@ const filtersPipeline = (data, filters) => {
     return result
 }
 
-const filterPatientData = (patientData, status, filter) => {
-    return patientData
-        .filter((patient) => patient.status.includes(status))
-        .filter((patient) => {
-            if (filter && filter !== "") {
-                return (
-                    patient.patient_name.includes(filter) ||
-                    patient.arrhythmias.includes(filter)
-                )
-            }
-            return true
-        })
+const filterPatientData = (patientData, filter) => {
+    console.log({ patientData })
+
+    return patientData.filter((patient) => {
+        if (filter && filter !== "") {
+            return (
+                patient.patient_name.toLowerCase().includes(filter) ||
+                patient.arrhythmias.some((arrhythmia) => {
+                    return arrhythmia.toLowerCase().includes(filter)
+                })
+            )
+        }
+        return true
+    })
 }
 
 export {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Column from "./components/Column"
 import SearchBar from "./components/SearchBar"
-import { filterPatientData } from "./utils"
+import { filterData, filterDataByInequality, filterPatientData } from "./utils"
 
 const App = () => {
     const apiURL = "http://localhost:3000/cards"
@@ -37,28 +37,20 @@ const App = () => {
                     <h1 className="my-2 text-center text-2xl text-purple-800">
                         Todo (Pending - Rejected)
                     </h1>
-                    <div className="grid grid-cols-2 gap-2">
-                        {patientData && (
-                            <Column
-                                data={filterPatientData(
+
+                    {patientData && (
+                        <Column
+                            data={filterPatientData(
+                                filterDataByInequality(
                                     patientData,
-                                    "PENDING",
-                                    filter,
-                                )}
-                                setPatientData={setPatientData}
-                            />
-                        )}
-                        {patientData && (
-                            <Column
-                                data={filterPatientData(
-                                    patientData,
-                                    "REJECTED",
-                                    filter,
-                                )}
-                                setPatientData={setPatientData}
-                            />
-                        )}
-                    </div>
+                                    "status",
+                                    "DONE",
+                                ),
+                                filter,
+                            )}
+                            setPatientData={setPatientData}
+                        />
+                    )}
                 </div>
 
                 <div>
@@ -68,8 +60,7 @@ const App = () => {
                     {patientData && (
                         <Column
                             data={filterPatientData(
-                                patientData,
-                                "DONE",
+                                filterData(patientData, "status", "DONE"),
                                 filter,
                             )}
                             setPatientData={setPatientData}
